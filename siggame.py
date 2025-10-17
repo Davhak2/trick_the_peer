@@ -46,12 +46,12 @@ class Trick:
 		if self.enter:
 			self.enter = False
 		if effective_show:
-			if self.signal_attempts > 700:
+			if self.signal_attempts == 242:
 				print("\033[34m" + "Eeee de hmi uzac chuzac nuyn krugy pti fras" + "\033[0m")
 				self.signal_attempts = 0
-			elif self.signal_attempts > 669:
+			elif self.signal_attempts > 230:
 				print("\033[34m" + f"Hargelis password-y \"{self.secret}\" a" + "\033[0m")
-			elif self.signal_attempts >= 666 and self.signal_attempts <= 668:
+			elif self.signal_attempts >= 225 and self.signal_attempts <= 230:
 				print("\033[34m" + f"Password-y \"{self.secret}\" a" + "\033[0m")
 			elif self.signal_attempts % 50 == 0:
 				print("\033[34m" + "Ara de asum em eli anasun erkir a" + "\033[0m")
