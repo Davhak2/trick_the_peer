@@ -8,10 +8,13 @@ class Trick:
 	def __init__(self):
 		self.secret = "ElKompsBacChemToxni"
 		self.attempts = 0
+		self.lernik = 0
 		self.locked_until = 0
 		self.signal_attempts = 0
 		self.passwrd = False
 		self.flag = False
+		self.hide_prompt = False
+		self.enter = False
 		self.signals = {
 			signal.SIGINT,
 			signal.SIGQUIT,
@@ -37,14 +40,18 @@ class Trick:
 
 	def clear_tab(self, show_message=True):
 		os.system('clear' if os.name == 'posix' else 'cls')
-		effective_show = show_message and not self.hide_prompt
+		effective_show = show_message and not self.hide_prompt and not self.enter and self.attempts != 5
 		if self.hide_prompt:
 			self.hide_prompt = False
+		if self.enter:
+			self.enter = False
 		if effective_show:
-			if self.signal_attempts % 666 == 0:
-				print("Ara de zzvcir eli paroly \"ElKompsBacChemToxni\" a")
+			if self.signal_attempts >= 666 and self.signal_attempts <= 668:
+				print("Ara de zzvcir eli password-y \"ElKompsBacChemToxni\" a")
+			elif self.signal_attempts > 669:
+				print("Hargelis password-y \"ElKompsBacChemToxni\" a")
 			elif self.signal_attempts % 50 == 0:
-				print("Ara de asum em anasun erkir a")
+				print("Ara de asum em eli anasun erkir a")
 			elif self.signal_attempts % 15 == 0:
 				print("Ba urish vonc es ape?")
 			elif self.signal_attempts % 11 == 0:
@@ -57,10 +64,11 @@ class Trick:
 	def mission_success(self):
 		self.clear_tab(show_message=False)
 		print("🎉 Congratulations! You discovered the secret phrase.")
-		print("Now do these commands:")
-		print("  vim .zshrc")
-		print("  delete python3 siggame.py command")
-		print("  source .zshrc")
+		print("\n\n\nCAUTION!!!")
+		print("Please remove the script runner command from the .zshrc file and enjoy coding! 😎")
+		print("Best Regards, Davihako")
+		print("\n\nFor any questions:")
+		print("Telegram: @ICantGetNoW")
 		sys.exit(0)
 
 	def lockout(self):
@@ -80,11 +88,10 @@ class Trick:
 			time.sleep(0.08)
 
 	def run(self):
-		print("Welcome to the program Qashvar!!!\nTry to exit from here")
+		print("Welcome to the program, Qashvar!!!\nTry to exit from here")
 
-		default_thread = threading.Thread(target=self.default_loop, daemon=True)
-		default_thread.start()
-
+		dfl = threading.Thread(target=self.default_loop, daemon=True)
+		dfl.start()
 		while True:
 			try:
 				if time.time() < self.locked_until:
@@ -92,8 +99,15 @@ class Trick:
 					time.sleep(1)
 					continue
 				line = input("").strip()
+				self.enter = True
 				self.clear_tab()
-				print("Chkpav ynger jan")
+				if self.lernik % 3 == 0:
+					print("LERNIK IN REEED")
+				elif self.lernik % 3 == 1:
+					print("IS RISING FOR MEEEE")
+				else:
+					print("OH YEAAAAH...")
+				self.lernik += 1
 			except EOFError:
 				if time.time() < self.locked_until:
 					print("⏳ Locked! Please wait...")
@@ -110,6 +124,7 @@ class Trick:
 						self.clear_tab()
 						print("Chkpav ynger jan")
 						self.attempts += 1
+						print(f"Attempts left: {5 - self.attempts}")
 						if self.attempts % 5 == 0:
 							self.lockout()
 				except (EOFError, KeyboardInterrupt):
