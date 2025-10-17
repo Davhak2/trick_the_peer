@@ -33,7 +33,7 @@ class Trick:
 
 	def handler(self, signum, frame):
 		if time.time() < self.locked_until:
-			print("⏳ Locked! Please wait...")
+			print("\033[91m⏳ Locked! Please wait...\033[0m")
 			return
 		self.signal_attempts += 1
 		self.clear_tab()
@@ -46,74 +46,77 @@ class Trick:
 		if self.enter:
 			self.enter = False
 		if effective_show:
-			if self.signal_attempts >= 666 and self.signal_attempts <= 668:
-				print("Ara de zzvcir eli password-y \"ElKompsBacChemToxni\" a")
+			if self.signal_attempts > 700:
+				print("\033[34m" + "Eeee de hmi uzac chuzac nuyn krugy pti fras" + "\033[0m")
+				self.signal_attempts = 0
 			elif self.signal_attempts > 669:
-				print("Hargelis password-y \"ElKompsBacChemToxni\" a")
+				print("\033[34m" + f"Hargelis password-y \"{self.secret}\" a" + "\033[0m")
+			elif self.signal_attempts >= 666 and self.signal_attempts <= 668:
+				print("\033[34m" + f"Password-y \"{self.secret}\" a" + "\033[0m")
 			elif self.signal_attempts % 50 == 0:
-				print("Ara de asum em eli anasun erkir a")
+				print("\033[34m" + "Ara de asum em eli anasun erkir a" + "\033[0m")
 			elif self.signal_attempts % 15 == 0:
-				print("Ba urish vonc es ape?")
+				print("\033[34m" +"Ba urish vonc es ape?" + "\033[0m")
 			elif self.signal_attempts % 11 == 0:
-				print("Axjkeq jan vor hasneq 500 drami indzi dzen ktaq")
+				print("\033[34m" +"Axjkeq jan vor hasneq 500 drami indzi dzen ktaq" + "\033[0m")
 			elif self.signal_attempts % 5 == 0:
-				print("Vay es el gitei qez ruchken a petq")
+				print("\033[34m" + "Vay es el gitei qez ruchken a petq" + "\033[0m")
 			else:
-				print("Ujex qashi")
+				print("\033[34m" + "Ujex qashi" + "\033[0m")
 
 	def mission_success(self):
 		self.clear_tab(show_message=False)
-		print("🎉 Congratulations! You discovered the secret phrase.")
-		print("\n\n\nCAUTION!!!")
-		print("Please remove the script runner command from the .zshrc file and enjoy coding! 😎")
-		print("Best Regards, Davihako")
-		print("\n\nFor any questions:")
-		print("Telegram: @ICantGetNoW")
+		print("\033[92m🎉 Congratulations! You discovered the secret phrase.\033[0m")
+		print("\033[93m\n\n\nCAUTION!!!\033[0m")
+		print("\033[96mPlease remove the script runner command from the ~/.zshrc or ~/.bashrc file and enjoy coding! 😎\033[0m")
+		print("\033[95mBest Regards, Davihako\033[0m")
+		print("\033[94m\n\nGithub:   Davhak2\033[0m")
+		print("\033[96mTelegram: @ICantGetNoW\033[0m")
 		sys.exit(0)
 
 	def lockout(self):
 		self.locked_until = time.time() + 30
 		self.clear_tab()
-		print("⏳ Too many attempts! Locked for 30 seconds...")
+		print("\033[91m⏳ Too many attempts! Locked for 30 seconds...\033[0m")
 		while time.time() < self.locked_until:
 			time.sleep(1)
 		self.attempts = 0
 		self.clear_tab(show_message=False)
-		print("✅ You can try again now.")
+		print("\033[92m✅ You can try again now.\033[0m")
 
 	def default_loop(self):
 		while True:
 			if time.time() >= self.locked_until and not self.passwrd:
-				print("la", end="", flush=True)
+				print("\033[33m" + "la" + "\033[0m", end="", flush=True)
 			time.sleep(0.08)
 
 	def run(self):
-		print("Welcome to the program, Qashvar!!!\nTry to exit from here")
+		print("\033[95mWelcome to the program, Qashvar!!!\nTry to exit from here\033[0m")
 
 		dfl = threading.Thread(target=self.default_loop, daemon=True)
 		dfl.start()
 		while True:
 			try:
 				if time.time() < self.locked_until:
-					print("⏳ Locked! Please wait...")
+					print("\033[91m⏳ Locked! Please wait...\033[0m")
 					time.sleep(1)
 					continue
 				line = input("").strip()
 				self.enter = True
 				self.clear_tab()
 				if self.lernik % 3 == 0:
-					print("LERNIK IN REEED")
+					print("\033[91mLERNIK IN REEED\033[0m")
 				elif self.lernik % 3 == 1:
-					print("IS RISING FOR MEEEE")
+					print("\033[93mIS RISING FOR MEEEE\033[0m")
 				else:
-					print("OH YEAAAAH...")
+					print("\033[92mOH YEAAAAH...\033[0m")
 				self.lernik += 1
 			except EOFError:
 				if time.time() < self.locked_until:
-					print("⏳ Locked! Please wait...")
+					print("\033[91m⏳ Locked! Please wait...\033[0m")
 					time.sleep(1)
 					continue
-				print("\nDavay de paroly asa")
+				print("\033[31m\nDavay de paroly asa\033[0m")
 				self.passwrd = True
 				try:
 					password = input("").strip()
@@ -122,9 +125,9 @@ class Trick:
 					else:
 						self.hide_prompt = True
 						self.clear_tab()
-						print("Chkpav ynger jan")
+						print("\033[1mChkpav ynger jan\033[0m")
 						self.attempts += 1
-						print(f"Attempts left: {5 - self.attempts}")
+						print(f"\033[31mAttempts left: {5 - self.attempts}\033[0m")
 						if self.attempts % 5 == 0:
 							self.lockout()
 				except (EOFError, KeyboardInterrupt):
@@ -133,7 +136,7 @@ class Trick:
 					self.passwrd = False
 			except KeyboardInterrupt:
 				if time.time() < self.locked_until:
-					print("⏳ Locked! Please wait...")
+					print("\033[91m⏳ Locked! Please wait...\033[0m")
 					time.sleep(1)
 					continue
 				self.clear_tab()
